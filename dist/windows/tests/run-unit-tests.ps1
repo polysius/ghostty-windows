@@ -27,7 +27,8 @@ try {
         'NotifyIconData',
         'only web and mail',
         'windowsPathFromUriPath',
-        'virtualKeyOf reverses the mapping'
+        'virtualKeyOf reverses the mapping',
+        'detectShell'
     )
     $arguments = @('build', 'test', '-Dapp-runtime=win32', '--summary', 'all') + ($filters | ForEach-Object { "-Dtest-filter=$_" })
     & $Zig @arguments
