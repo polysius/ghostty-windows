@@ -7,13 +7,9 @@ else, including the terminal emulation, fonts and renderer, is Ghostty's own.
 
 ## Install a release
 
-Download `ghostty-windows-x64.zip` from the
-[releases page](https://github.com/polysius/ghostty-windows/releases/latest),
-unzip it and run this in PowerShell from the unzipped folder:
-
-    powershell -ExecutionPolicy Bypass -File install.ps1
-
-No build tools are needed. The rest of this page covers building from source.
+To install a prebuilt release, follow the steps in the
+[top-level README](../../README.md#install-on-windows). The rest of this page
+covers building from source.
 
 ## Build, test and install
 
