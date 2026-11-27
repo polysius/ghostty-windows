@@ -5,6 +5,12 @@ Ghostty supports only Linux and macOS, so this adds a Windows application
 runtime (`src/apprt/win32`) and a few Windows fixes to the core. Everything
 else, including the terminal emulation, fonts and renderer, is Ghostty's own.
 
+## Install a release
+
+To install a prebuilt release, follow the steps in the
+[top-level README](../../README.md#install-on-windows). The rest of this page
+covers building from source.
+
 ## Build, test and install
 
 Zig 0.17.0 and the Visual Studio C++ tools with a Windows SDK are needed.

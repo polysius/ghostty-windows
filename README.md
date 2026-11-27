@@ -21,6 +21,30 @@
   </p>
 </p>
 
+## Install on Windows
+
+This repository is a native Windows build of Ghostty. It needs no extra
+runtime libraries and no administrator rights.
+
+1. Open the [latest release](https://github.com/polysius/ghostty-windows/releases/latest)
+   and download `ghostty-windows-x64.zip`.
+2. Unzip it.
+3. Open PowerShell in the unzipped folder and run:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File install.ps1
+   ```
+
+The installer copies Ghostty to `%LOCALAPPDATA%\Programs\Ghostty`, adds a
+`ghostty` command for cmd and PowerShell, and adds a Start menu shortcut. If
+`ghostty` is not found afterward, add `%USERPROFILE%\.local\bin` to your PATH.
+Close any running Ghostty before you update, since a running copy keeps its
+files locked.
+
+To remove it, run `uninstall.ps1` from the install folder. Ghostty cannot be
+set as the Windows default terminal yet. See [dist/windows](dist/windows/README.md)
+for what works, what is missing and how to build it from source.
+
 ## About
 
 Ghostty is a terminal emulator that differentiates itself by being
