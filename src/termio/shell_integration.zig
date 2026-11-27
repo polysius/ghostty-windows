@@ -145,7 +145,11 @@ fn detectShell(alloc: Allocator, command: config.Command) !?Shell {
     defer arg_iter.deinit();
 
     const arg0 = arg_iter.next() orelse return null;
-    const exe = std.fs.path.basename(arg0);
+    // On Windows programs are named with an extension, such as zsh.exe.
+    const base = std.fs.path.basename(arg0);
+    const has_exe_extension = builtin.target.os.tag == .windows and
+        std.ascii.endsWithIgnoreCase(base, ".exe");
+    const exe = if (has_exe_extension) base[0 .. base.len - 4] else base;
 
     if (std.mem.eql(u8, "bash", exe)) {
         // Apple distributes their own patched version of Bash 3.2
@@ -192,6 +196,11 @@ test detectShell {
 
     if (comptime builtin.target.os.tag.isDarwin()) {
         try testing.expect(try detectShell(alloc, .{ .shell = "/bin/bash" }) == null);
+    }
+
+    if (comptime builtin.target.os.tag == .windows) {
+        try testing.expectEqual(.zsh, try detectShell(alloc, .{ .shell = "C:\\msys64\\usr\\bin\\zsh.exe" }));
+        try testing.expectEqual(.bash, try detectShell(alloc, .{ .shell = "bash.exe" }));
     }
 
     try testing.expectEqual(.bash, try detectShell(alloc, .{ .shell = "bash -c 'command'" }));

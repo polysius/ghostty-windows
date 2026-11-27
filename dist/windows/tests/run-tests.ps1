@@ -26,6 +26,14 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $Exe) { $Exe = Join-Path $scriptDir '..\..\..\zig-out\bin\ghostty.exe' }
 $Exe = (Resolve-Path $Exe).Path
 
+# Ghostty reads its config from %LOCALAPPDATA%\ghostty. Point it at an empty
+# folder so the tests see the defaults and not the personal config of whoever
+# runs them. Ghostty copies a config template into this folder on first start.
+$testConfigRoot = Join-Path ([IO.Path]::GetTempPath()) 'ghostty-tests-localappdata'
+New-Item -ItemType Directory -Force $testConfigRoot | Out-Null
+Remove-Item (Join-Path $testConfigRoot 'ghostty') -Recurse -Force -ErrorAction SilentlyContinue
+$env:LOCALAPPDATA = $testConfigRoot
+
 Add-Type -TypeDefinition @'
 using System;
 using System.Collections.Generic;

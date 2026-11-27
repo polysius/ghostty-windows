@@ -74,3 +74,6 @@ clipboard, and screenshots of the window. Plain F-keys are bound to actions
 with `--keybind`, because posted key messages carry no Ctrl or Shift state.
 A test that needs a screenshot uses `PrintWindow`, which works while other
 windows cover Ghostty.
+
+The script points `LOCALAPPDATA` at an empty temporary folder, so the tests
+run with the default config and not the config of whoever runs them.
